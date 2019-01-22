@@ -253,10 +253,12 @@ static NSString * const kCompContainerAnimationKey = @"play";
   } else {
     // The view is being detached, capture information that need to be restored later.
     if (_isAnimationPlaying) {
-      [self pause];
-      _shouldRestoreStateWhenAttachedToWindow = YES;
-      _completionBlockToRestoreWhenAttachedToWindow = _completionBlock;
-      _completionBlock = nil;
+        LOTAnimationCompletionBlock completion = _completionBlock;
+        [self pause];
+        _shouldRestoreStateWhenAttachedToWindow = YES;
+        _completionBlockToRestoreWhenAttachedToWindow = _completionBlock;
+        _completionBlockToRestoreWhenAttachedToWindow = completion;
+        _completionBlock = nil;
     }
   }
 }
